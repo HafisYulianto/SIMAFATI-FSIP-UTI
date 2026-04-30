@@ -43,17 +43,32 @@ Route::middleware('auth')->group(function () {
         Route::resource('entities', DynamicEntityController::class);
 
         // User management
-        Route::resource('users', UserManagementController::class)->except(['show']);
+        Route::resource('users', UserManagementController::class);
         Route::patch('/users/{user}/toggle-active', [UserManagementController::class, 'toggleActive'])
             ->name('users.toggle-active');
     });
 
-    // Records - BAAK + Kaprodi can create/edit, others can view
-    Route::middleware('role:BAAK|Kaprodi|Dosen')->group(function () {
-        // View entity details & records (all authenticated roles)
-        Route::get('/entities/{entity}/view', [DynamicEntityController::class, 'show'])
-            ->name('entities.view')->withoutMiddleware('role:BAAK|Kaprodi|Dosen');
+    // Pimpinan read-only: browse all entities by category
+    Route::middleware('role:Pimpinan')->group(function () {
+        Route::get('/pimpinan/data/{category}', [DashboardController::class, 'pimpinanBrowse'])
+            ->name('pimpinan.browse')
+            ->where('category', 'dosen|mahasiswa');
+    });
 
+    // View entity details & record detail - all authenticated roles
+    Route::get('/entities/{entity}/view', [DynamicEntityController::class, 'show'])
+        ->name('entities.view');
+    Route::get('/entities/{entity}/records/{record}/detail', [DynamicRecordController::class, 'show'])
+        ->name('records.detail');
+
+    // Delete entity - BAAK, Kaprodi, Dosen
+    Route::middleware('role:BAAK|Kaprodi|Dosen')->group(function () {
+        Route::delete('/entities/{entity}/delete', [DynamicEntityController::class, 'destroy'])
+            ->name('entities.delete');
+    });
+
+    // Records - BAAK + Kaprodi + Dosen can create/edit
+    Route::middleware('role:BAAK|Kaprodi|Dosen')->group(function () {
         // Record CRUD
         Route::get('/entities/{entity}/records/create', [DynamicRecordController::class, 'create'])
             ->name('records.create');

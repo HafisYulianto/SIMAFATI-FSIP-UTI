@@ -17,6 +17,7 @@
                 </div>
             </div>
             <div class="flex items-center gap-2">
+                @unlessrole('Pimpinan')
                 @can('records.create')
                 <a href="{{ route('records.create', $entity) }}" class="btn-primary" id="add-record-btn">
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -28,6 +29,14 @@
                 @role('BAAK')
                 <a href="{{ route('entities.edit', $entity) }}" class="btn-secondary">Edit Kategori</a>
                 @endrole
+                <form method="POST" action="{{ route('entities.delete', $entity) }}" onsubmit="return confirm('Yakin ingin menghapus kategori &quot;{{ $entity->name }}&quot; beserta seluruh datanya? Tindakan ini tidak bisa dibatalkan!')" class="inline">
+                    @csrf @method('DELETE')
+                    <button type="submit" class="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-red-600 bg-red-50 border border-red-200 rounded-lg hover:bg-red-100 hover:text-red-700 transition-colors">
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                        Hapus Kategori
+                    </button>
+                </form>
+                @endunlessrole
             </div>
         </div>
 
@@ -100,6 +109,11 @@
                             <td class="text-xs text-gray-400">{{ $record->created_at->format('d/m/Y') }}</td>
                             <td>
                                 <div class="flex items-center gap-1">
+                                    @role('Pimpinan')
+                                    <a href="{{ route('records.detail', [$entity, $record]) }}" class="btn-icon" title="Lihat">
+                                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                                    </a>
+                                    @else
                                     <a href="{{ route('records.show', [$entity, $record]) }}" class="btn-icon" title="Lihat">
                                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
                                     </a>
@@ -116,6 +130,7 @@
                                         </button>
                                     </form>
                                     @endcan
+                                    @endrole
                                 </div>
                             </td>
                         </tr>
@@ -133,9 +148,11 @@
                 </svg>
                 <h3 class="text-lg font-semibold text-gray-400 mb-2">Belum Ada Data</h3>
                 <p class="text-sm text-gray-300 mb-6">Mulai tambahkan data ke kategori ini</p>
+                @unlessrole('Pimpinan')
                 @can('records.create')
                 <a href="{{ route('records.create', $entity) }}" class="btn-primary">Tambah Data Pertama</a>
                 @endcan
+                @endunlessrole
             </div>
             @endif
         </div>

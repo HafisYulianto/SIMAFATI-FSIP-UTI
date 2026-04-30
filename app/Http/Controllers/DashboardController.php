@@ -64,4 +64,43 @@ class DashboardController extends Controller
             'prodiDistribution'
         ));
     }
+
+    /**
+     * Pimpinan browse page: view all entities and their records by category (read-only).
+     */
+    public function pimpinanBrowse(Request $request, string $category)
+    {
+        $entities = DynamicEntity::active()
+            ->byCategory($category)
+            ->withCount('records')
+            ->with('fields')
+            ->orderBy('sort_order')
+            ->get();
+
+        // Get total record count for this category
+        $totalRecords = DynamicRecord::whereHas('entity', fn($q) => $q->where('root_category', $category))->count();
+
+        // Get selected entity's data if specified
+        $selectedEntity = null;
+        $records = collect();
+        $tableFields = collect();
+
+        if ($request->has('entity_id')) {
+            $selectedEntity = DynamicEntity::with('fields')->findOrFail($request->entity_id);
+            $tableFields = $selectedEntity->getTableFields();
+            $records = $selectedEntity->records()
+                ->with(['creator', 'programStudi'])
+                ->latest()
+                ->paginate(20);
+        }
+
+        return view('dashboard.pimpinan-browse', compact(
+            'category',
+            'entities',
+            'totalRecords',
+            'selectedEntity',
+            'records',
+            'tableFields'
+        ));
+    }
 }

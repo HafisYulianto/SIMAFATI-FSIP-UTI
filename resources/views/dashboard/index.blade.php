@@ -86,6 +86,47 @@
             </div>
         </div>
 
+        {{-- Pimpinan Quick Access Portal --}}
+        @role('Pimpinan')
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 slide-up" style="animation-delay: 350ms">
+            <a href="{{ route('pimpinan.browse', 'dosen') }}" class="group relative block overflow-hidden rounded-2xl bg-gradient-to-br from-primary-600 to-primary-800 p-8 text-white shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+                <div class="absolute -right-6 -top-6 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+                <div class="absolute right-8 bottom-8 w-20 h-20 bg-white/5 rounded-full blur-xl"></div>
+                <div class="relative">
+                    <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mb-6 backdrop-blur-sm border border-white/20 group-hover:bg-white/30 transition-colors">
+                        <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">📚 Lihat Data Dosen</h3>
+                    <p class="text-primary-100 text-sm">Akses seluruh kategori dan record data dosen yang telah diinput oleh BAAK, Kaprodi, dan Dosen.</p>
+                    <div class="mt-6 flex items-center gap-2 text-sm font-medium text-primary-200 group-hover:text-white transition-colors">
+                        <span>Buka Halaman</span>
+                        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                    </div>
+                </div>
+            </a>
+            <a href="{{ route('pimpinan.browse', 'mahasiswa') }}" class="group relative block overflow-hidden rounded-2xl bg-gradient-to-br from-blue-600 to-blue-800 p-8 text-white shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+                <div class="absolute -right-6 -top-6 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+                <div class="absolute right-8 bottom-8 w-20 h-20 bg-white/5 rounded-full blur-xl"></div>
+                <div class="relative">
+                    <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mb-6 backdrop-blur-sm border border-white/20 group-hover:bg-white/30 transition-colors">
+                        <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">🎓 Lihat Data Mahasiswa</h3>
+                    <p class="text-blue-100 text-sm">Akses seluruh kategori dan record data mahasiswa yang telah diinput oleh BAAK, Kaprodi, dan Dosen.</p>
+                    <div class="mt-6 flex items-center gap-2 text-sm font-medium text-blue-200 group-hover:text-white transition-colors">
+                        <span>Buka Halaman</span>
+                        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                    </div>
+                </div>
+            </a>
+        </div>
+        @endrole
+
         {{-- Charts Row --}}
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {{-- Program Studi Distribution --}}
@@ -133,7 +174,7 @@
                 </div>
                 <div class="divide-y divide-gray-100">
                     @forelse($dosenEntities as $entity)
-                    <a href="{{ route('entities.show', $entity) }}" class="flex items-center justify-between px-6 py-3 hover:bg-primary-50/50 transition-colors">
+                    <a href="{{ route('entities.view', $entity) }}" class="flex items-center justify-between px-6 py-3 hover:bg-primary-50/50 transition-colors">
                         <span class="text-sm text-gray-700">{{ $entity->name }}</span>
                         <span class="badge-primary">{{ $entity->records_count }} data</span>
                     </a>
@@ -155,7 +196,7 @@
                 </div>
                 <div class="divide-y divide-gray-100">
                     @forelse($mahasiswaEntities as $entity)
-                    <a href="{{ route('entities.show', $entity) }}" class="flex items-center justify-between px-6 py-3 hover:bg-blue-50/50 transition-colors">
+                    <a href="{{ route('entities.view', $entity) }}" class="flex items-center justify-between px-6 py-3 hover:bg-blue-50/50 transition-colors">
                         <span class="text-sm text-gray-700">{{ $entity->name }}</span>
                         <span class="badge-info">{{ $entity->records_count }} data</span>
                     </a>

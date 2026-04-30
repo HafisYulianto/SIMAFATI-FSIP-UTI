@@ -145,7 +145,7 @@ class DynamicEntityController extends Controller
         $entity->delete();
 
         return redirect()
-            ->route('entities.index')
+            ->route('dashboard')
             ->with('success', "Kategori data \"{$name}\" beserta seluruh datanya berhasil dihapus.");
     }
 }

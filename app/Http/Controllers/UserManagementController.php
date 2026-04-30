@@ -52,7 +52,7 @@ class UserManagementController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => bcrypt($request->password),
+            'password' => $request->password,
             'nip' => $request->nip,
             'program_studi_id' => $request->program_studi_id,
             'is_active' => true,
@@ -63,6 +63,12 @@ class UserManagementController extends Controller
         return redirect()
             ->route('users.index')
             ->with('success', "Akun \"{$user->name}\" dengan role {$request->role} berhasil dibuat.");
+    }
+
+    public function show(User $user)
+    {
+        $user->load(['roles', 'programStudi']);
+        return view('users.show', compact('user'));
     }
 
     public function edit(User $user)
@@ -94,7 +100,7 @@ class UserManagementController extends Controller
         ];
 
         if ($request->filled('password')) {
-            $userData['password'] = bcrypt($request->password);
+            $userData['password'] = $request->password;
         }
 
         $user->update($userData);
