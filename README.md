@@ -236,7 +236,7 @@ Setiap **Entity** (kategori) memiliki custom **Fields** (kolom). Data disimpan s
 
 ## 👨‍💻 Dibuat Oleh
 
-**Hafis Yulianto** — Mahasiswa Magang  
+**Hafis Yulianto & M. Dava Ardana** — Mahasiswa Magang  
 Fakultas Sastra dan Ilmu Pendidikan  
 Universitas Teknokrat Indonesia
 
