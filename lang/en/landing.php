@@ -1,0 +1,51 @@
+<?php
+
+return [
+    'nav_about' => 'About',
+    'nav_vision' => 'Vision & Mission',
+    'nav_programs' => 'Programs',
+    'nav_dashboard' => 'Go to Dashboard',
+    'nav_login' => 'Login to System',
+    
+    'hero_badge' => 'Faculty of Arts and Education',
+    'hero_title_1' => 'Sistem Manajemen Fakultas',
+    'hero_title_2' => 'Terintegrasi',
+    'hero_desc' => 'Empowering the Faculty of Arts and Education through digital transformation. A centralized platform for dynamic data management, accreditation tracking, and strategic governance.',
+    'hero_btn_dashboard' => 'Access Dashboard',
+    'hero_btn_login' => 'Login to Portal',
+    'hero_btn_learn' => 'Learn More',
+
+    'vision_badge' => 'Our Compass',
+    'vision_title' => 'Vision & Mission',
+    'vision_heading' => 'Vision',
+    'vision_text' => '"By 2035, to become an internationally recognized Center of Excellence in literature, language, and education, contributing meaningfully to sustainable national development through the core missions of higher education (Education, Research, and Community Service)"',
+    
+    'mission_heading' => 'Missions',
+    'mission_1' => 'To deliver excellent education and teaching based on Outcome-Based Education (OBE) in the fields of literature, language, and education in a professional manner, upholding discipline, quality, creativity, and innovation.',
+    'mission_2' => 'To conduct research aimed at advancing literature, language, and educational sciences with meaningful impact on society.',
+    'mission_3' => 'To implement community service activities in the fields of literature, language, and educational sciences to enhance community welfare.',
+    'mission_4' => 'To establish and strengthen collaboration in English language teaching and education with various stakeholders at the national and international levels.',
+    'mission_5' => 'To strengthen information and communication technology (ICT)-based management in fostering a conducive academic environment towards internationally standardized Good University Governance (GUG).',
+
+    'goals_badge' => 'Our Targets',
+    'goals_title' => 'Faculty Goals',
+    'goal_1' => 'Producing competent and competitive graduates in the fields of literature, language and education.',
+    'goal_2' => 'Increasing the number of competitive research projects in the fields of literature, language, and education, and the dissemination of knowledge that is implemented in society.',
+    'goal_3' => 'Increasing the community service works in the fields of literature, language and education that are able to solve practical problems in society.',
+    'goal_4' => 'Increasing of partnerships in the field of English language teaching and education with various stakeholders at both national and international levels.',
+    'goal_5' => 'Strengthening an information and communication technology–based management system in order to achieve internationally standardized good university governance (GUG).',
+
+    'programs_badge' => 'Academics',
+    'programs_title' => 'Study Programs',
+    'prog_si_title' => 'S1 Sastra Inggris',
+    'prog_si_desc' => 'English Literature',
+    'prog_pbi_title' => 'S1 Pendidikan Bahasa Inggris',
+    'prog_pbi_desc' => 'English Language Education',
+    'prog_por_title' => 'S1 Pendidikan Olahraga',
+    'prog_por_desc' => 'Sports Education',
+    'prog_pm_title' => 'S1 Pendidikan Matematika',
+    'prog_pm_desc' => 'Mathematics Education',
+
+    'footer_faculty' => 'Fakultas Sastra dan Ilmu Pendidikan',
+    'footer_rights' => 'All rights reserved.',
+];

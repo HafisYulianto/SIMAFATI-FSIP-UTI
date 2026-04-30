@@ -1,0 +1,169 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        @apply scroll-smooth;
+    }
+    body {
+        @apply font-sans text-gray-800 antialiased;
+    }
+}
+
+@layer components {
+    /* Sidebar */
+    .sidebar {
+        @apply fixed left-0 top-0 h-full w-64 bg-gradient-to-b from-primary-900 via-primary-800 to-primary-950 text-white shadow-2xl z-40 transition-transform duration-300;
+    }
+    .sidebar-link {
+        @apply flex items-center gap-3 px-4 py-3 text-sm text-primary-100 rounded-lg mx-2 transition-all duration-200 hover:bg-white/10 hover:text-white hover:translate-x-1;
+    }
+    .sidebar-link.active {
+        @apply bg-white/15 text-white font-semibold shadow-lg backdrop-blur-sm;
+    }
+    .sidebar-section-title {
+        @apply px-4 py-2 text-xs font-bold uppercase tracking-wider text-primary-300/70;
+    }
+
+    /* Cards */
+    .card {
+        @apply bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-md;
+    }
+    .stat-card {
+        @apply card p-6 relative overflow-hidden;
+    }
+    .stat-card::before {
+        content: '';
+        @apply absolute top-0 right-0 w-32 h-32 rounded-full opacity-10 -translate-y-8 translate-x-8;
+    }
+
+    /* Buttons */
+    .btn {
+        @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 text-sm font-semibold rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
+    }
+    .btn-primary {
+        @apply btn bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-500 shadow-lg shadow-primary-500/25 hover:shadow-primary-500/40 active:scale-[0.98];
+    }
+    .btn-secondary {
+        @apply btn bg-gray-100 text-gray-700 hover:bg-gray-200 focus:ring-gray-400;
+    }
+    .btn-danger {
+        @apply btn bg-red-600 text-white hover:bg-red-700 focus:ring-red-500;
+    }
+    .btn-outline {
+        @apply btn border-2 border-primary-600 text-primary-600 hover:bg-primary-50 focus:ring-primary-500;
+    }
+    .btn-sm {
+        @apply px-3 py-1.5 text-xs rounded-lg;
+    }
+    .btn-icon {
+        @apply p-2 rounded-lg hover:bg-gray-100 transition-colors text-gray-500 hover:text-gray-700;
+    }
+
+    /* Form inputs */
+    .form-input {
+        @apply block w-full rounded-xl border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 text-sm transition-colors duration-200;
+    }
+    .form-select {
+        @apply block w-full rounded-xl border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 text-sm;
+    }
+    .form-label {
+        @apply block text-sm font-medium text-gray-700 mb-1.5;
+    }
+    .form-error {
+        @apply text-xs text-red-600 mt-1;
+    }
+
+    /* Tables */
+    .data-table {
+        @apply w-full text-sm text-left;
+    }
+    .data-table thead {
+        @apply bg-gray-50/80;
+    }
+    .data-table th {
+        @apply px-6 py-4 text-xs font-bold uppercase tracking-wider text-gray-500;
+    }
+    .data-table td {
+        @apply px-6 py-4 text-gray-700;
+    }
+    .data-table tbody tr {
+        @apply border-b border-gray-100 hover:bg-primary-50/30 transition-colors duration-150;
+    }
+
+    /* Badge */
+    .badge {
+        @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+    }
+    .badge-primary {
+        @apply badge bg-primary-100 text-primary-800;
+    }
+    .badge-info {
+        @apply badge bg-blue-100 text-blue-800;
+    }
+    .badge-warning {
+        @apply badge bg-amber-100 text-amber-800;
+    }
+    .badge-danger {
+        @apply badge bg-red-100 text-red-800;
+    }
+
+    /* Page header */
+    .page-header {
+        @apply flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8;
+    }
+    .page-title {
+        @apply text-2xl font-bold text-gray-900;
+    }
+    .page-subtitle {
+        @apply text-sm text-gray-500 mt-1;
+    }
+
+    /* Chart container */
+    .chart-card {
+        @apply card p-6;
+    }
+    .chart-title {
+        @apply text-base font-semibold text-gray-900 mb-4;
+    }
+
+    /* Empty state */
+    .empty-state {
+        @apply flex flex-col items-center justify-center py-16 text-gray-400;
+    }
+
+    /* Topbar */
+    .topbar {
+        @apply fixed top-0 right-0 left-64 h-16 bg-white/80 backdrop-blur-lg border-b border-gray-200/60 z-30 flex items-center justify-between px-6;
+    }
+}
+
+@layer utilities {
+    .fade-in {
+        animation: fadeIn 0.3s ease-out;
+    }
+    .slide-up {
+        animation: slideUp 0.4s ease-out;
+    }
+    .slide-right {
+        animation: slideRight 0.3s ease-out;
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideRight {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+}

@@ -1,0 +1,77 @@
+<?php
+
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DynamicEntityController;
+use App\Http\Controllers\DynamicRecordController;
+use App\Http\Controllers\UserManagementController;
+use Illuminate\Support\Facades\Route;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes - SIMAFATI FSIP
+|--------------------------------------------------------------------------
+*/
+
+// Guest routes
+Route::get('/', function () {
+    return view('landing');
+})->name('landing');
+
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
+});
+
+// Language Switcher Route
+Route::get('/lang/{locale}', function ($locale) {
+    if (in_array($locale, ['en', 'id'])) {
+        session()->put('locale', $locale);
+    }
+    return redirect()->back();
+})->name('lang.switch');
+
+// Authenticated routes
+Route::middleware('auth')->group(function () {
+    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+    // Dashboard - accessible by all roles
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // Entity management - BAAK only
+    Route::middleware('role:BAAK')->group(function () {
+        Route::resource('entities', DynamicEntityController::class);
+
+        // User management
+        Route::resource('users', UserManagementController::class)->except(['show']);
+        Route::patch('/users/{user}/toggle-active', [UserManagementController::class, 'toggleActive'])
+            ->name('users.toggle-active');
+    });
+
+    // Records - BAAK + Kaprodi can create/edit, others can view
+    Route::middleware('role:BAAK|Kaprodi|Dosen')->group(function () {
+        // View entity details & records (all authenticated roles)
+        Route::get('/entities/{entity}/view', [DynamicEntityController::class, 'show'])
+            ->name('entities.view')->withoutMiddleware('role:BAAK|Kaprodi|Dosen');
+
+        // Record CRUD
+        Route::get('/entities/{entity}/records/create', [DynamicRecordController::class, 'create'])
+            ->name('records.create');
+        Route::post('/entities/{entity}/records', [DynamicRecordController::class, 'store'])
+            ->name('records.store');
+        Route::get('/entities/{entity}/records/{record}', [DynamicRecordController::class, 'show'])
+            ->name('records.show');
+        Route::get('/entities/{entity}/records/{record}/edit', [DynamicRecordController::class, 'edit'])
+            ->name('records.edit');
+        Route::put('/entities/{entity}/records/{record}', [DynamicRecordController::class, 'update'])
+            ->name('records.update');
+        Route::delete('/entities/{entity}/records/{record}', [DynamicRecordController::class, 'destroy'])
+            ->name('records.destroy');
+    });
+
+    // API endpoint for dashboard chart data (AJAX)
+    Route::get('/api/chart-data', function () {
+        $service = app(\App\Services\DashboardAggregationService::class);
+        return response()->json($service->getChartData());
+    })->name('api.chart-data');
+});
