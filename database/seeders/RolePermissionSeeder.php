@@ -69,11 +69,13 @@ class RolePermissionSeeder extends Seeder
             'entities.view',
         ]);
 
-        // Dosen: View + edit own records
+        // Dosen: View + create/edit records in existing categories
         $dosen = Role::create(['name' => 'Dosen']);
         $dosen->givePermissionTo([
             'dashboard.view',
             'records.view',
+            'records.create',
+            'records.edit',
             'own-records.view',
             'own-records.edit',
             'entities.view',

@@ -25,7 +25,7 @@
             <span>Dashboard</span>
         </a>
 
-        @role('BAAK')
+        @hasanyrole('BAAK|Kaprodi')
         {{-- Entity Management --}}
         <div class="pt-4">
             <p class="sidebar-section-title">Manajemen Data</p>
@@ -46,7 +46,7 @@
             </svg>
             <span>Buat Kategori Baru</span>
         </a>
-        @endrole
+        @endhasanyrole
 
         {{-- Dosen Category --}}
         @if($dosenEntities->count() > 0)

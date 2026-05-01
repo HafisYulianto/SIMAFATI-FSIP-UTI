@@ -100,6 +100,17 @@
                                 @php $val = $record->getFieldValue($field->slug); @endphp
                                 @if($field->type === 'file' && $val)
                                     <a href="{{ Storage::url($val) }}" target="_blank" class="text-primary-600 hover:underline text-xs">📎 Lihat File</a>
+                                @elseif($field->type === 'url' && $val)
+                                    <a href="{{ $val }}" target="_blank" class="text-primary-600 hover:underline text-sm inline-flex items-center gap-1 max-w-[200px] truncate">
+                                        <svg class="w-3.5 h-3.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                                        {{ Str::limit($val, 30) }}
+                                    </a>
+                                @elseif($field->type === 'email' && $val)
+                                    <a href="mailto:{{ $val }}" class="text-primary-600 hover:underline text-sm">{{ $val }}</a>
+                                @elseif($field->type === 'phone' && $val)
+                                    <a href="tel:{{ $val }}" class="text-primary-600 hover:underline text-sm">{{ $val }}</a>
+                                @elseif($field->type === 'date' && $val)
+                                    <span>{{ \Carbon\Carbon::parse($val)->format('d/m/Y') }}</span>
                                 @elseif($val)
                                     <span class="truncate max-w-[200px] block">{{ $val }}</span>
                                 @else

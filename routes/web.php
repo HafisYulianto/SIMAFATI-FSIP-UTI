@@ -38,11 +38,13 @@ Route::middleware('auth')->group(function () {
     // Dashboard - accessible by all roles
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    // Entity management - BAAK only
-    Route::middleware('role:BAAK')->group(function () {
+    // Entity management - BAAK & Kaprodi can create/edit categories
+    Route::middleware('role:BAAK|Kaprodi')->group(function () {
         Route::resource('entities', DynamicEntityController::class);
+    });
 
-        // User management
+    // User management - BAAK only
+    Route::middleware('role:BAAK')->group(function () {
         Route::resource('users', UserManagementController::class);
         Route::patch('/users/{user}/toggle-active', [UserManagementController::class, 'toggleActive'])
             ->name('users.toggle-active');
@@ -61,8 +63,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/entities/{entity}/records/{record}/detail', [DynamicRecordController::class, 'show'])
         ->name('records.detail');
 
-    // Delete entity - BAAK, Kaprodi, Dosen
-    Route::middleware('role:BAAK|Kaprodi|Dosen')->group(function () {
+    // Delete entity - BAAK & Kaprodi only
+    Route::middleware('role:BAAK|Kaprodi')->group(function () {
         Route::delete('/entities/{entity}/delete', [DynamicEntityController::class, 'destroy'])
             ->name('entities.delete');
     });

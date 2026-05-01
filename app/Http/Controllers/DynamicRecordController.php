@@ -87,7 +87,7 @@ class DynamicRecordController extends Controller
         }
 
         return redirect()
-            ->route('entities.show', $entity)
+            ->route('entities.view', $entity)
             ->with('success', 'Data berhasil ditambahkan.');
     }
 
@@ -169,7 +169,7 @@ class DynamicRecordController extends Controller
         ]);
 
         return redirect()
-            ->route('entities.show', $entity)
+            ->route('entities.view', $entity)
             ->with('success', 'Data berhasil diperbarui.');
     }
 
@@ -183,7 +183,7 @@ class DynamicRecordController extends Controller
         $record->delete();
 
         return redirect()
-            ->route('entities.show', $entity)
+            ->route('entities.view', $entity)
             ->with('success', 'Data berhasil dihapus.');
     }
 }
